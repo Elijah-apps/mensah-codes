@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'mensahcodes'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.openjfx:javafx-controls:20.0.1'
+    implementation 'org.openjfx:javafx-graphics:20.0.1'
+    implementation 'org.openjfx:javafx-web:20.0.1'
+}
+
+application {
+    mainClass.set('mensahcodes.JavaFXIDE')
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+run {
+    // Add VM options for JavaFX runtime
+    jvmArgs = [
+        '--module-path', classpath.asPath,
+        '--add-modules', 'javafx.controls,javafx.web'
+    ]
+}
